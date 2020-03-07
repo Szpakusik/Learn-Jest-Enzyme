@@ -31,17 +31,17 @@
         const store = testStore();
         
         moxios.wait( ()=>{
-            const request = moxiost.request.mostRecent();
+            const request = moxios.requests.mostRecent();
             request.respondWith({
                 status: 200,
                 response: expectedState,
             })
         })
 
-        return store.dispatch( fetchPosts )
+        return store.dispatch( fetchPosts() )
         .then( ()=>{
             const newState = store.getState();
-            expect(newState.posts.toBe(expectedState))
+            expect(newState.posts).toBe(expectedState)
         } )
 
     })
